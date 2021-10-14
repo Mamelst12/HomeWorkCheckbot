@@ -6,24 +6,35 @@
 // 이 문장을 삭제하거나, 수정하지 마세요.
 // 마시멜로봇이라는 이름을 본인 맛깔나는대로 수정하셔도 문제 없습니다.
 // 그러면 유용하게 사용하시길 바랍니다.
+
+// 사용법 
+// !숙제 등록 시작 (반이름) (괄호는 빼고 쓰세요.)
+// 차례대로 등록하라는 메시지가 뜨면 수학 부터 시작해서 국어, 영어, 과학, 추가 등 다양한 과목을 등록하세요.
+// 등록이 끝나면 !등록 끝내기로 등록을 끝내세요.
+// 숙제를 찾을때는 !숙제찾기 (본인 반 이름)으로 찾으세요. (물론 괄호는 뺴고)
+// 끝
+
+//메인소스
 const scriptName = "HomeWorkCheck";
-var d = new Date();
-var NowTime = d.getFullYear() + '년 ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일 ';
+const botname = "마시멜로봇";
+const cramschoolname = "" //본인 학원 이름
 const Lw = '​'.repeat(500);
 function response(room, msg, sender, isGroupChat, replier, imageDB, packageName) {
-  const sender1 = FileStream.read("/sdcard/마시멜로봇/숙제등록/" + room + "/" + "이름" + ".txt");
-  const name2 = FileStream.read("/sdcard/마시멜로봇/숙제등록/" + room + "/" + "반이름" + ".txt");
+var d = new Date();
+var NowTime = d.getFullYear() + '년 ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일 ';
+  const sender1 = FileStream.read("/sdcard/"+ botname +"/숙제등록/" + room + "/" + "이름" + ".txt");
+  const name2 = FileStream.read("/sdcard/" + botname + "/숙제등록/" + room + "/" + "반이름" + ".txt");
   const replace1 = msg.replace("!숙제 등록 시작 ", "");
   if (msg.indexOf("!숙제 등록 시작 ") == 0) {
     replier.reply("숙제 등록을 시작합니다. 현재 " + sender + "님만 숙제 등록이 가능합니다.");
     java.lang.Thread.sleep(3 * 1000);
-    FileStream.write("/sdcard/마시멜로봇/숙제등록/" + room + "/" + "이름" + ".txt", sender);
+    FileStream.write("/sdcard/" + botname + "/숙제등록/" + room + "/" + "이름" + ".txt", sender);
     replier.reply("이름을 등록 중입니다.. 잠시만 기다리십시오.");
     java.lang.Thread.sleep(3 * 1000);
-    FileStream.write("/sdcard/마시멜로봇/숙제등록/" + room + "/" + "반이름" + ".txt", msg.replace("!숙제 등록 시작 ", ""));
+    FileStream.write("/sdcard/" + botname = "/숙제등록/" + room + "/" + "반이름" + ".txt", msg.replace("!숙제 등록 시작 ", ""));
     replier.reply("반 이름을 등록합니다.. 잠시만 기다리십시오.");
     java.lang.Thread.sleep(2 * 1000);
-    FileStream.write("/sdcard/마시멜로봇/숙제/" + msg.replace("!숙제 등록 시작 ", "") + "/" + "숙제" + ".txt", NowTime + " 메가세종학원  " + msg.replace("!숙제 등록 시작 ", "") + " 숙제 \n\n작성자 : " + sender + "\n\n\n");
+    FileStream.write("/sdcard/"+ botname + "/숙제/" + msg.replace("!숙제 등록 시작 ", "") + "/" + "숙제" + ".txt", NowTime + " "+ cramschoolname + " " + msg.replace("!숙제 등록 시작 ", "") + " 숙제 \n\n작성자 : " + sender + "\n\n\n");
     replier.reply("숙제를 차례대로 등록합니다. 수학 숙제 부터 시작해 명령어에 따라서 입력하십시오. \n !수학 등록 숙제내용");
   }
   if (msg.indexOf("!수학 등록 ") == 0 && sender == sender1) {
